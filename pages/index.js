@@ -1,9 +1,18 @@
+import Layout from "../layout/Layout";
 
+export default function Home({ categorias }) {
 
-export default function Home() {
   return (
-      <h1 className="text-3xl font-bold underline">
-        Hello world!
-      </h1>
+    <Layout>
+      <h1>Hello world!</h1>
+    </Layout>
+
+
   )
+  
+  
+
 }
+
+
+
