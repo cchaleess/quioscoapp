@@ -1,6 +1,32 @@
 import Head from "next/head";
 import SideBar from "../components/Sidebar";
+import Modal from "react-modal"
+import useQuiosco from "../hooks/useQuiosco";
+import ModalProducto from "../components/ModalProducto";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import Pasos from "../components/Pasos";
+
+const customStyles = {
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+    },
+  };
+  //Si fuese create-react-app, se puede usar el modal de la siguiente manera:
+  //Modal.setAppElement('#root');
+  //Al ser next.js, se debe usar el modal de la siguiente manera:
+    Modal.setAppElement('#__next');
+
+
+//El sidebar esta fijo y el main es scrollable utilizando h-screen overflow-y-scroll
 export default function Layout({ children, pagina }) {
+
+    const {modal} = useQuiosco();
 
     return (
         <>
@@ -14,9 +40,23 @@ export default function Layout({ children, pagina }) {
                     <SideBar />
                 </aside>
                 <main className="md:w-8/12 xl:w-3/4 2xl:w-4/5 h-screen overflow-y-scroll">
-                    {children}
+                   <div className="p-10">
+                       <Pasos />
+                        {children}
+                       </div>
+                   
                 </main>
             </div>
+
+            {modal && (
+                <Modal
+                    isOpen={modal}
+                    style={customStyles}
+                >
+                    <ModalProducto />
+                </Modal>
+            )}
+            <ToastContainer />
         </>
     );
 }
